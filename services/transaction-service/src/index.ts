@@ -1,5 +1,6 @@
 import { Transaction } from "../../../packages/types/transaction";
 import { approveTransaction } from "../../approval-service/src";
+import { signTransaction } from "../../key-service/src";
 
 const db: Record<string, Transaction> = {};
 
@@ -20,7 +21,15 @@ export function processApproval(txId: string, userId: string) {
   const tx = db[txId];
   if (!tx) throw new Error("Transaction not found");
 
-  const updated = approveTransaction(tx, userId);
+  approveTransaction(tx, userId);
 
-  return updated;
+  // 🔥 CORE LOGIC: trigger signing after quorum
+  if (tx.status === "APPROVED") {
+    const signedTx = signTransaction(tx);
+    tx.status = "SIGNED";
+
+    return signedTx;
+  }
+
+  return tx;
 }
