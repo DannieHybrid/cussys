@@ -1,17 +1,11 @@
-export type TransactionStatus =
-  | "CREATED"
-  | "PENDING_APPROVAL"
-  | "APPROVED"
-  | "SIGNED"
-  | "BROADCASTED";
+export type TransactionStatus = "PENDING_APPROVAL" | "APPROVED" | "SIGNED";
 
 export interface Transaction {
   id: string;
   from: string;
   to: string;
   amount: number;
-  chain: "EVM" | "SOLANA";
   status: TransactionStatus;
   approvals: string[];
-  createdAt: Date;
+  signature?: string;
 }

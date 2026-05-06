@@ -7,6 +7,7 @@ export function approveTransaction(tx: Transaction, userId: string) {
     tx.approvals.push(userId);
   }
 
+  // 🔥 IMPORTANT: set status when threshold is met
   if (tx.approvals.length >= REQUIRED_APPROVALS) {
     tx.status = "APPROVED";
   }

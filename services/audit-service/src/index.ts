@@ -1,7 +1,3 @@
-export function logEvent(event: string, metadata?: any) {
-  console.log({
-    event,
-    metadata,
-    timestamp: new Date().toISOString(),
-  });
+export function logEvent(event: string, data: any) {
+  console.log(`[AUDIT] ${event}`, data);
 }
