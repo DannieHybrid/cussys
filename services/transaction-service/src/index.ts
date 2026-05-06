@@ -1,4 +1,4 @@
-import { Transaction } from "../../packages/types/transaction";
+import { Transaction } from "../../../packages/types/transaction";
 
 const db: Record<string, Transaction> = {};
 
